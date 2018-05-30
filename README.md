@@ -1,5 +1,7 @@
 # PanzerBot
 PanzerBot is (for the momment) a Discord exclusive bot. PanzerBot uses IPC and WebSockets to provide a realtime (online) control panel of the bot. We are always looking for features to add to PanzerBot
+
+Currently PanzerBot is all intended for local use. Ideally a user interested in PanzerBot would put the code from the github on a VPS (or other machine) and run the NodeJS Programs and then go to the web panel to set up and control from there. PanzerBot will use that specific person's token and other details. Far later down the line when more exclusive features are added Panzer may go into private development and be hosted by me or other's as a service rather than locally executed code, but this is not the plan. I want to keep PanzerBot open-source and free for review for a long time.
 # Future
 Our plans for the future
 * Make a similar Twitch Bot which will help make a streamer's life easier
