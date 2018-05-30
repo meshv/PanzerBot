@@ -9,11 +9,11 @@ Our plans for the future
 # Screenshots
 None to show for now. (Still in early stages of development)
 # Todo / Progress
-### For todo and progress view the [Project Board](projects/1)
+### For todo and progress view the [Project Board](https://github.com/meshv/PanzerBot/projects/)
 # Bug Reporting / Suggestions
-If you've found a bug or thought of a suggestion please make an [Issue](issues/) and it will be marked / responded to upon review.
+If you've found a bug or thought of a suggestion please make an [Issue](https://github.com/meshv/PanzerBot/issues/) and it will be marked / responded to upon review.
 # User Documentation 
-### For the user documentation view the [Github Wiki](wiki)
+### For the user documentation view the [Github Wiki](https://github.com/meshv/PanzerBot/wiki)
 # Credits / Primary Contributors
 Main Developer: [Contempt00](https://github.com/contempt00)
 
