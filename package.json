@@ -1,0 +1,25 @@
+{
+  "name": "panzerbot",
+  "version": "1.0.0",
+  "description": "PanzerBot is (for the momment) a Discord exclusive bot. PanzerBot uses IPC and WebSockets to provide a realtime (online) control panel of the bot. We are always looking for features to add to PanzerBot",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meshv/PanzerBot.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meshv/PanzerBot/issues"
+  },
+  "homepage": "https://github.com/meshv/PanzerBot#readme",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "colors": "^1.3.0",
+    "ps-node": "^0.1.6"
+  }
+}
