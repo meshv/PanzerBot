@@ -1,13 +1,16 @@
 $(document).ready(function onDocumentReady(){
 
-    $("#tokenInput").on('keyup', function onTokenKeypress(){
-        console.log($("#tokenInput").val().length);
-        if($("#tokenInput").val().length > 5){
+    $(document).on('keyup', function onTokenKeypress(){
+        if($("#tokenInput").val().length > 5 && $("#userInput").val().length > 3){
             $("#continueBtn").prop( "disabled", false );
         }
         else{
             $("#continueBtn").prop( "disabled", true );
         }
+    });
+
+    $("#submitInstall").on('click', function submitInstallForm(){
+        $("#installForm").submit();
     });
 
 });

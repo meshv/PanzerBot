@@ -10,6 +10,8 @@ var filesystem = require('fs');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 
+var Database = require('./database.js');
+
 // Serve our (static) public directory so CSS/IMGs work.
 app.use(express.static(__dirname + '/public/'));
 
@@ -42,13 +44,35 @@ app.post('/install', function(req, res){
     // Create settings.json file if it doesn't exist already
     if(filesystem.existsSync(__dirname+'/../discord/settings.json')){
         // Settings file doesn't exist send user to install page
-        res.render(__dirname + '/views/');
+        res.redirect('/');
         return;
     }
     var Token = req.body.token;
+    var UserInput = req.body.adminUser;
+    var PassInput = req.body.adminPass;
+    if(!UserInput || !PassInput || !Token){
+        res.redirect('/');
+        return;
+    }
+    Database.createPanelUser(UserInput, PassInput, 7, function createUserCallback(err, data){
+        if(err){
+            console.log(`[Web.js -> Database.js]: ${err}\nINstallation Failed...`);
+            res.redirect('/');
+            return;
+        }
+        else{
+            Database.addLogItem("Success", "Created User: "+data.username, "Server Install");
+            console.log(`Created user: ${data.username}`);
+        }
+    });
+
     var settingsJSON = {"clientToken":Token};
     filesystem.writeFile(__dirname+'/../discord/settings.json', JSON.stringify(settingsJSON), 'utf8', function(err){
-        console.log(`[Web.js, Error]: ${err}`);
+        if(err){
+            console.log(`[Web.js -> Install]: ${err}\nInstallation Failed...`);
+        }
+        res.redirect('/');
+        return;
     });
 });
 
