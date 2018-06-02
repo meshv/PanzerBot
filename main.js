@@ -41,6 +41,6 @@ WebProcess.on("message", function handleWebsiteIPC(msg){
 BotProcess.on("message", function handleDiscordBotIPC(msg){
     // msg: Data sent from WebProcess IPC
     switch(msg.event){
-
+        
     }
 });

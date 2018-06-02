@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/meshv/PanzerBot#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "child_process": "^1.0.2",
     "colors": "^1.3.0",
+    "express-session": "^1.15.6",
     "fs": "0.0.1-security",
     "ps-node": "^0.1.6"
   }

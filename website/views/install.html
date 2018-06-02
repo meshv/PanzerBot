@@ -1,5 +1,53 @@
-<!-- Install Page 
-    Todo:
-    Add PIN Authorization
-    Actual Install Items
--->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>PanzerBot: Install</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <!-- Site Includes -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/install.css" />
+    <script src="js/install.js"></script>
+</head>
+
+<body style="background-color: #F1F1F1; padding: 20px;">
+    <!-- Install Panel -->
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>About PanzerBot</h4>
+                </div>
+
+                <div class="card-body" style="color: #27202B;">
+                    <p>PanzerBot is (for the momment) a Discord exclusive bot. PanzerBot uses IPC and WebSockets to provide a realtime (online) control panel of the bot. We are always looking for features to add to PanzerBot</p>
+                    <p>For more info, troubleshooting help and bug/feature suggestions, please visit the <a href="https://github.com/meshv/PanzerBot" target="_blank">GitHub</a></p>
+                </div>
+            </div>  
+
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>Install PanzerBot</h4>
+                </div>
+
+                <div class="card-body" style="color: #27202B;">
+                    <form action="/install" method="POST">
+                        <input id="tokenInput" name="token" type="text" class="form-control" placeholder="Discord Bot Token">
+                        <button type="submit" id="continueBtn" class="form-control btn" disabled="true">Continue</button>
+                    </form>
+                </div>
+            </div>  
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+.card-header {
+    background-color: #A9A5BF !important;
+    color: #27202B !important;
+    width: 100%;
+}
+.card {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.btn {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background-color: #A9A5BF;
+    color: #27202B !important;
+}
