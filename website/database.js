@@ -4,16 +4,20 @@
 
 var MongoClient = require('mongodb').MongoClient;
 
-exports.addLogItem = function(status, action, executer, callback){
+exports.addLogItem = addLogItem;
+exports.createPanelUser = createPanelUser;
+
+function addLogItem(status, action, executer, callback){
     // Adds an item to the panel's log
     // Args: Status (Failed, Success, Unknown, etc), Action (Added Server, Added User, etc), Executer (User that executed the action)
-
+    console.log("AddLogItem: " + status);
 };
 
-exports.createPanelUser = function(username, password, level, callback){
+function createPanelUser(username, password, level, callback){
     MongoClient.connect("mongodb://localhost:27017", function handleConnection(err, db){
         if(err) {
             callback(err, null); 
+            db.close();
             return; // Return after sending error
         }
         var Panzer = db.db('PanzerBot');
@@ -22,6 +26,8 @@ exports.createPanelUser = function(username, password, level, callback){
                 callback(err, null); 
                 return; // Return after sending error
             }        
+            db.close();
+            addLogItem("test");
             callback(null, res); // Return the user to the callback
         });
     });

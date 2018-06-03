@@ -1,6 +1,6 @@
 .card-header {
-    background-color: #A9A5BF !important;
-    color: #27202B !important;
+    color: whitesmoke;
+    background-color: #212529 !important;
     width: 100%;
 }
 .card {
@@ -9,17 +9,17 @@
 }
 
 .btn {
+    border-color: #212529;
     margin-top: 1%;
     margin-bottom: 1%;
-    background-color: #A9A5BF;
-    color: #27202B !important;
 }
-
 .btn:hover {
-    background-color: rgb(125, 118, 167);
+    background-color: #ababac;
 }
-
 input {
     margin-top: 2%;
     margin-bottom: 1%;
+}
+* {
+    font-family: 'IBM Plex Sans', sans-serif;
 }

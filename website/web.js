@@ -60,10 +60,6 @@ app.post('/install', function(req, res){
             res.redirect('/');
             return;
         }
-        else{
-            Database.addLogItem("Success", "Created User: "+data.username, "Server Install");
-            console.log(`Created user: ${data.username}`);
-        }
     });
 
     var settingsJSON = {"clientToken":Token};
