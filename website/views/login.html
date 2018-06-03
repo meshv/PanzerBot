@@ -15,21 +15,61 @@
     <!-- Site Includes -->
     <link rel="stylesheet" type="text/css" media="screen" href="css/login.css" />
     <script src="js/login.js"></script>
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300" rel="stylesheet">
 </head>
 
 <body style="background-color: #F1F1F1; padding: 20px;">
 
     <div id="errorDisplay">
-
+        <% if ( flash != null ) { %>
+            <div class="row">
+                <div class="alert alert-danger text-center col-md-4" role="alert" style="float: none; margin: auto;">
+                    <%= flash %>
+                </div>
+            </div>
+        <% } %>
     </div>
 
     <div id="timeHolder">
-
+        <div class="text-center" id="pageTimer" style="font-size: 30px; font-family: 'Quicksand', sans-serif;">
+            <p><span id="timer">00:00:00</span> <span id="date">WED, JUN 6</span></p>
+        </div>
     </div>
 
-    <div id="loginForm">
+    <div id="loginDiv" class="col-md-6" style="float: none; margin: auto;">
+        <div class="card">
+            <div class="card-header bg-dark" style="color: rgba(255, 255, 255, 0.692);">
+                <div id="loginHeaders" style="margin-left: 3%;margin-right: 3%;">
+                    <h5 id="login-tab" class="active float-left">Login to PanzerBot</h5>
+                    <h5 id="claim-tab" class="float-right">Claim an Account</h5>                
+                </div>
 
+            </div>
+
+            <div class="card-body" style="color: #27202B;">
+
+                <div class="text-center">
+                        <form id="login-form" action="/login" method="POST">
+                            <input id="userInput" name="adminUser" type="text" class="form-control" placeholder="Admin Username">
+                            <input id="passInput" name="adminPass" type="password" class="form-control" placeholder="Admin Password">
+                            <button id="login" type="submit" class="form-control btn" disabled="true">Continue</button>
+                        </form>
+
+                        <form id="claim-form" action="/claim" method="POST">
+                            <p>Note: You must have a key provided by an existing admin to create an account.</p>
+                            <input id="acctUser" name="acctUser" type="text" class="form-control" placeholder="Username">
+                            <input id="acctPass" name="acctPass" type="password" class="form-control" placeholder="Password">
+                            <input id="acctKey" name="acctKey" type="password" class="form-control" placeholder="Account Key">
+                            <button id="claim" type="submit" class="form-control btn" disabled="true">Claim</button>
+                        </form>
+
+                        <a href="https://github.com/meshv/PanzerBot" target="_blank">PanzerBot GitHub</a>
+                </div>               
+            </div>
+
+        </div>  
     </div>
 
 </body>

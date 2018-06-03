@@ -1,3 +1,39 @@
 * {
     font-family: 'IBM Plex Sans', sans-serif;
 }
+input {
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+.btn {
+    border-color: #212529;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+.btn:hover {
+    background-color: #ababac;
+}
+.btn:disabled {
+    border-width: 0;
+}
+.btn:disabled:hover {
+    border-width: 0;
+    background-color: #F1F3F5;
+}
+
+body { 
+    background: url(/img/panzerlogin.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.active {
+    color: white;
+}
+
+#loginHeaders > h5:hover {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.938);
+}

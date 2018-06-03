@@ -36,8 +36,12 @@ app.get('/', function(req, res){
         // Settings file doesn't exist send user to install page
         res.render(__dirname + '/views/install.html');
     }else {
-        res.render(__dirname + '/views/');
+        res.render(__dirname + '/views/login.html', {flash: null});
     }
+});
+
+app.get('/panel', function(req, res){
+    // Serve the panel page (Only if a user is logged in)
 });
 
 app.post('/install', function(req, res){
