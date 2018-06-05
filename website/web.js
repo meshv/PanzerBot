@@ -9,6 +9,7 @@ var io = require('socket.io')(server);
 var filesystem = require('fs');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt');
 
 var Database = require('./database.js');
 
@@ -58,7 +59,8 @@ app.post('/install', function(req, res){
         res.redirect('/');
         return;
     }
-    Database.createPanelUser(UserInput, PassInput, 7, function createUserCallback(err, data){
+    let HashedPassword = bcrypt.hashSync(PassInput, 10);
+    Database.createPanelUser(UserInput, HashedPassword, 7, function createUserCallback(err, data){
         if(err){
             console.log(`[Web.js -> Database.js]: ${err}\nINstallation Failed...`);
             res.redirect('/');
