@@ -9,7 +9,6 @@ var io = require('socket.io')(server);
 var filesystem = require('fs');
 var session = require('express-session');
 var bodyParser = require('body-parser');
-var bcrypt = require('bcrypt');
 
 var Database = require('./database.js');
 
@@ -40,7 +39,7 @@ app.get('/', function (req, res) {
     res.render(__dirname + '/views/install.html');
   } else {
     let userSession = req.session;
-    if (!userSession.uid || !userSession.name) {
+    if (!userSession.uid || !userSession.name || !userSession.level) {
       res.render(__dirname + '/views/login.html', {
         flash: null
       });
@@ -60,14 +59,48 @@ app.get('/', function (req, res) {
         });
         return;
       } else {
-        // Continue to login page
+        // Continue to panel page user is valid
+        res.render(__dirname + '/views/index.html');
+        return;      
       }
     });
   }
 });
 
 app.post('/login', function (req, res) {
+  let username = req.body.loginName;
+  let password = req.body.loginPass;
+  Database.attemptLogin(username, password, function canLogin(err, result){
+    if (err) {
+      console.log(`[Web.js -> Database.js]: ${err}`);
+      res.render(__dirname + '/views/login.html', {
+        flash: "Sorry! Database Error"
+      });
+      return;
+    }
+    if(result){
+      // If result user has entered valid details
+      req.session.uid = result.id;
+      req.session.name = result.username;
+      req.session.level = result.level;
+      res.redirect('/');
+      return;
+    }
+    else{
+      res.render(__dirname + '/views/login.html', {
+        flash: "Invalid Username/Password"
+      });
+      return;    
+    }
+  });
+});
 
+app.all('/logout', function(req, res){
+  req.session.uid = null;
+  req.session.name = null;
+  req.session.level = null;
+  res.redirect('/');
+  return;
 });
 
 app.post('/install', function (req, res) {

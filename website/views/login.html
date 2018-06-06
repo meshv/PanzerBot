@@ -59,16 +59,16 @@
 
         <div class="text-center">
           <form id="login-form" action="/login" method="POST">
-            <input id="userInput" name="adminUser" type="text" class="form-control" placeholder="Admin Username">
-            <input id="passInput" name="adminPass" type="password" class="form-control" placeholder="Admin Password">
+            <input id="userInput" name="loginName" type="text" class="form-control" placeholder="Admin Username">
+            <input id="passInput" name="loginPass" type="password" class="form-control" placeholder="Admin Password">
             <button id="login" type="submit" class="form-control btn" disabled="true">Continue</button>
           </form>
 
           <form id="claim-form" action="/claim" method="POST">
             <p>Note: You must have a key provided by an existing admin to create an account.</p>
-            <input id="acctUser" name="acctUser" type="text" class="form-control" placeholder="Username">
-            <input id="acctPass" name="acctPass" type="password" class="form-control" placeholder="Password">
-            <input id="acctKey" name="acctKey" type="password" class="form-control" placeholder="Account Key">
+            <input id="acctUser" name="claimUser" type="text" class="form-control" placeholder="Username">
+            <input id="acctPass" name="claimPass" type="password" class="form-control" placeholder="Password">
+            <input id="acctKey" name="claimKey" type="password" class="form-control" placeholder="Account Key">
             <button id="claim" type="submit" class="form-control btn" disabled="true">Claim</button>
           </form>
 
