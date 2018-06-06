@@ -37,12 +37,25 @@ app.get('/', function(req, res){
         // Settings file doesn't exist send user to install page
         res.render(__dirname + '/views/install.html');
     }else {
-        res.render(__dirname + '/views/login.html', {flash: null});
+        let userSession = req.session;
+        if(!userSession.uid || !userSession.name){
+            res.render(__dirname + '/views/login.html', {flash: null});
+            return;
+        }
+        Database.isValidUser(userSession.uid, userSession.name, function isValid(err, result){
+            if(err){
+                console.log(`[Web.js -> Database.js]: ${err}`);
+                res.render(__dirname + '/views/login.html', {flash: "Sorry! Database Error"});
+                return;                   
+            }
+            if(!result){
+                res.render(__dirname + '/views/login.html', {flash: "Sorry! That's not a valid user..."});
+                return;            
+            }else{
+                // Continue to login page
+            }
+        });
     }
-});
-
-app.get('/panel', function(req, res){
-    // Serve the panel page (Only if a user is logged in)
 });
 
 app.post('/install', function(req, res){
@@ -59,10 +72,10 @@ app.post('/install', function(req, res){
         res.redirect('/');
         return;
     }
-    let HashedPassword = bcrypt.hashSync(PassInput, 10);
-    Database.createPanelUser(UserInput, HashedPassword, 7, function createUserCallback(err, data){
+    
+    Database.createPanelUser(UserInput, PassInput, 7, function createUserCallback(err, data){
         if(err){
-            console.log(`[Web.js -> Database.js]: ${err}\nINstallation Failed...`);
+            console.log(`[Web.js -> Database.js]: ${err}\nInstallation Failed...`);
             res.redirect('/');
             return;
         }
