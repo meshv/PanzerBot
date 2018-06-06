@@ -33,49 +33,39 @@ app.use(session({
   saveUninitialized: false
 }));
 
-<<<<<<< HEAD
 app.get('/', function (req, res) {
   // Serve our views directory (for index.html/homepage)
   if (!filesystem.existsSync(__dirname + '/../discord/settings.json')) {
     // Settings file doesn't exist send user to install page
     res.render(__dirname + '/views/install.html');
   } else {
-    if (!req.session._id || !req.session.name) {
+    let userSession = req.session;
+    if (!userSession.uid || !userSession.name) {
       res.render(__dirname + '/views/login.html', {
         flash: null
       });
       return;
-=======
-app.get('/', function(req, res){
-    // Serve our views directory (for index.html/homepage)
-    if(!filesystem.existsSync(__dirname+'/../discord/settings.json')){
-        // Settings file doesn't exist send user to install page
-        res.render(__dirname + '/views/install.html');
-    }else {
-        let userSession = req.session;
-        if(!userSession.uid || !userSession.name){
-            res.render(__dirname + '/views/login.html', {flash: null});
-            return;
-        }
-        Database.isValidUser(userSession.uid, userSession.name, function isValid(err, result){
-            if(err){
-                console.log(`[Web.js -> Database.js]: ${err}`);
-                res.render(__dirname + '/views/login.html', {flash: "Sorry! Database Error"});
-                return;                   
-            }
-            if(!result){
-                res.render(__dirname + '/views/login.html', {flash: "Sorry! That's not a valid user..."});
-                return;            
-            }else{
-                // Continue to login page
-            }
-        });
->>>>>>> a014e9c8891c0d2abf18bf58d26b06b351c0b143
     }
+    Database.isValidUser(userSession.uid, userSession.name, function isValid(err, result) {
+      if (err) {
+        console.log(`[Web.js -> Database.js]: ${err}`);
+        res.render(__dirname + '/views/login.html', {
+          flash: "Sorry! Database Error"
+        });
+        return;
+      }
+      if (!result) {
+        res.render(__dirname + '/views/login.html', {
+          flash: "Sorry! That's not a valid user..."
+        });
+        return;
+      } else {
+        // Continue to login page
+      }
+    });
   }
 });
 
-<<<<<<< HEAD
 app.post('/login', function (req, res) {
 
 });
@@ -101,30 +91,6 @@ app.post('/install', function (req, res) {
       return;
     }
   });
-=======
-app.post('/install', function(req, res){
-    // Create settings.json file if it doesn't exist already
-    if(filesystem.existsSync(__dirname+'/../discord/settings.json')){
-        // Settings file doesn't exist send user to install page
-        res.redirect('/');
-        return;
-    }
-    var Token = req.body.token;
-    var UserInput = req.body.adminUser;
-    var PassInput = req.body.adminPass;
-    if(!UserInput || !PassInput || !Token){
-        res.redirect('/');
-        return;
-    }
-    
-    Database.createPanelUser(UserInput, PassInput, 7, function createUserCallback(err, data){
-        if(err){
-            console.log(`[Web.js -> Database.js]: ${err}\nInstallation Failed...`);
-            res.redirect('/');
-            return;
-        }
-    });
->>>>>>> a014e9c8891c0d2abf18bf58d26b06b351c0b143
 
   var settingsJSON = {
     "clientToken": Token
