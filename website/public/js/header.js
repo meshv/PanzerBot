@@ -1,6 +1,6 @@
-$( document ).ready(function() {
-    $('.leftmenutrigger').on('click', function(e) {
+$(document).ready(function () {
+  $('.leftmenutrigger').on('click', function (e) {
     $('.side-nav').toggleClass("open");
     e.preventDefault();
-   });
+  });
 });

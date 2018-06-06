@@ -17,81 +17,91 @@ var Database = require('./database.js');
 app.use(express.static(__dirname + '/public/'));
 
 // Set some important app things
-app.engine('html', require('ejs').renderFile); 
+app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 // Parse data from requests
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 // Sessions
 app.use(session({
-    secret: 'panzerbot',
-    resave: true,
-    saveUninitialized: false
+  secret: 'panzerbot',
+  resave: true,
+  saveUninitialized: false
 }));
 
-app.get('/', function(req, res){
-    // Serve our views directory (for index.html/homepage)
-    if(!filesystem.existsSync(__dirname+'/../discord/settings.json')){
-        // Settings file doesn't exist send user to install page
-        res.render(__dirname + '/views/install.html');
-    }else {
-        res.render(__dirname + '/views/login.html', {flash: null});
+app.get('/', function (req, res) {
+  // Serve our views directory (for index.html/homepage)
+  if (!filesystem.existsSync(__dirname + '/../discord/settings.json')) {
+    // Settings file doesn't exist send user to install page
+    res.render(__dirname + '/views/install.html');
+  } else {
+    if (!req.session._id || !req.session.name) {
+      res.render(__dirname + '/views/login.html', {
+        flash: null
+      });
+      return;
     }
+  }
 });
 
-app.get('/panel', function(req, res){
-    // Serve the panel page (Only if a user is logged in)
+app.post('/login', function (req, res) {
+
 });
 
-app.post('/install', function(req, res){
-    // Create settings.json file if it doesn't exist already
-    if(filesystem.existsSync(__dirname+'/../discord/settings.json')){
-        // Settings file doesn't exist send user to install page
-        res.redirect('/');
-        return;
+app.post('/install', function (req, res) {
+  // Create settings.json file if it doesn't exist already
+  if (filesystem.existsSync(__dirname + '/../discord/settings.json')) {
+    // Settings file doesn't exist send user to install page
+    res.redirect('/');
+    return;
+  }
+  var Token = req.body.token;
+  var UserInput = req.body.adminUser;
+  var PassInput = req.body.adminPass;
+  if (!UserInput || !PassInput || !Token) {
+    res.redirect('/');
+    return;
+  }
+  Database.createPanelUser(UserInput, PassInput, 7, function createUserCallback(err, data) {
+    if (err) {
+      console.log(`[Web.js -> Database.js]: ${err}\nInstallation Failed...`);
+      res.redirect('/');
+      return;
     }
-    var Token = req.body.token;
-    var UserInput = req.body.adminUser;
-    var PassInput = req.body.adminPass;
-    if(!UserInput || !PassInput || !Token){
-        res.redirect('/');
-        return;
+  });
+
+  var settingsJSON = {
+    "clientToken": Token
+  };
+  filesystem.writeFile(__dirname + '/../discord/settings.json', JSON.stringify(settingsJSON), 'utf8', function (err) {
+    if (err) {
+      console.log(`[Web.js -> Install]: ${err}\nInstallation Failed...`);
     }
-    let HashedPassword = bcrypt.hashSync(PassInput, 10);
-    Database.createPanelUser(UserInput, HashedPassword, 7, function createUserCallback(err, data){
-        if(err){
-            console.log(`[Web.js -> Database.js]: ${err}\nINstallation Failed...`);
-            res.redirect('/');
-            return;
-        }
-    });
-
-    var settingsJSON = {"clientToken":Token};
-    filesystem.writeFile(__dirname+'/../discord/settings.json', JSON.stringify(settingsJSON), 'utf8', function(err){
-        if(err){
-            console.log(`[Web.js -> Install]: ${err}\nInstallation Failed...`);
-        }
-        res.redirect('/');
-        return;
-    });
+    res.redirect('/');
+    return;
+  });
 });
 
-app.get('*', function(req, res){
-    // Serve 404.html if no other pages match
-    res.render(__dirname+"/views/404.html");
+app.get('*', function (req, res) {
+  // Serve 404.html if no other pages match
+  res.render(__dirname + "/views/404.html");
 });
 
-io.on('connection', function(socket){
-    // Handle user connection to Socket.IO server. Will be used to communicate real time data
+io.on('connection', function (socket) {
+  // Handle user connection to Socket.IO server. Will be used to communicate real time data
 });
 
-process.on('message', function(m){
-    // Handle IPC Messages from the Parent process.
+process.on('message', function (m) {
+  // Handle IPC Messages from the Parent process.
 });
 
-server.listen(80, function listenCallback() {console.log("Control Panel Starting on port 80");});
+server.listen(80, function listenCallback() {
+  console.log("Control Panel Starting on port 80");
+});
 server.on('error', function httpServerError(e) {
-    console.log(`[Web.js, Error]: ${e}`);
+  console.log(`[Web.js, Error]: ${e}`);
 });
